@@ -18,6 +18,39 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Target
+
+- [X] Tailwind
+- [ ] App Router
+    - [ ] Server Component
+    - [ ] React Suspence & Streaming
+    - [ ] Parallel Routes
+    - [ ] Intercepting Routes
+    - [ ] Route Handlers
+    - [ ] Data Fetching
+    - [ ] React Cache
+    - [ ] Server Actions
+- [ ] Recoil
+- [ ] React Hook Form
+- [ ] Zod
+- [ ] MSW
+- [ ] React Query
+- [ ] tRPC
+- [ ] Prisma
+- [X] Feature Directory
+
+## ToDo
+- [X] UI
+- [ ] Type Definition using tRPC
+- [ ] Request using MSW & Route Handlers & Data Fetching & React Query
+- [ ] Serverside using Prisma & Server Actions
+- [ ] React Suspense & Streaming
+- [ ] Server Component
+- [ ] React Cache
+- [ ] Form using React Hook Form & Zod
+- [ ] State Management using Recoil
+
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
