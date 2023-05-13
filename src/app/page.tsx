@@ -1,4 +1,4 @@
-import TaskListItem from "@/features/task/components/TaskListItem";
+import TaskList from "@/features/task/components/TaskList";
 import { TaskItem } from "@/features/task/types";
 
 export const metadata = {
@@ -7,44 +7,44 @@ export const metadata = {
 
 const tasks: TaskItem[] = [
   {
+    id: 1,
     title: "Leslie Alexander",
     description: "leslie.alexander@example.com",
-    href: "#",
     date: "2023-01-23T13:23Z",
     tags: ["category1", "category2"],
   },
   {
+    id: 2,
     title: "Michael Foster",
     description: "michael.foster@example.com",
-    href: "#",
     date: "2023-01-23T13:23Z",
     tags: ["category1", "category2"],
   },
   {
+    id: 3,
     title: "Dries Vincent",
     description: "dries.vincent@example.com",
-    href: "#",
     date: "2023-01-23T13:23Z",
     tags: ["category1", "category2"],
   },
   {
+    id: 4,
     title: "Lindsay Walton",
     description: "lindsay.walton@example.com",
-    href: "#",
     date: "2023-01-23T13:23Z",
     tags: ["category1", "category2"],
   },
   {
+    id: 5,
     title: "Courtney Henry",
     description: "courtney.henry@example.com",
-    href: "#",
     date: "2023-01-23T13:23Z",
     tags: ["category1", "category2"],
   },
   {
+    id: 6,
     title: "Tom Cook",
     description: "tom.cook@example.com",
-    href: "#",
     date: "2023-01-23T13:23Z",
     tags: ["category1", "category2"],
   },
@@ -52,12 +52,8 @@ const tasks: TaskItem[] = [
 
 export default function Home() {
   return (
-    <ul role="list" className="divide-y divide-gray-100">
-      {tasks.map((task) => (
-        <li className="py-5" key={task.href}>
-          <TaskListItem task={task} />
-        </li>
-      ))}
-    </ul>
+    <div className="px-4 py-8">
+      <TaskList tasks={tasks} />
+    </div>
   );
 }
