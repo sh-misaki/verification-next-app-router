@@ -20,7 +20,7 @@ const TaskList: React.FunctionComponent<Props> = ({ tasks }) => {
 
   return (
     <div className="flex items-start gap-x-6">
-      <div role="list" className="flex-1 flex flex-col gap-y-6">
+      <div className="flex-1 flex flex-col gap-y-6">
         {tasks.map((task) => (
           <TaskListItem
             task={task}

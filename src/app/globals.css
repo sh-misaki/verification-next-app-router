@@ -19,3 +19,9 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
+
+@layer components {
+  .paragraph {
+    @apply font-sans text-base font-normal leading-relaxed text-inherit antialiased;
+  }
+}
