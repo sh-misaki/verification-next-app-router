@@ -21,7 +21,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 ## Target
 
 - [X] Tailwind
-- [ ] tRPC
+- [X] tRPC
 - [ ] MSW
 - [ ] App Router
     - [ ] Route Handlers
@@ -41,7 +41,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## ToDo
 - [X] UI
-- [ ] Type Definition using tRPC
+- [X] Type Definition using tRPC
 - [ ] Request using MSW & Route Handlers & Data Fetching & React Query
 - [ ] Serverside using Prisma & Server Actions
 - [ ] React Suspense & Streaming
