@@ -2,14 +2,15 @@
 
 import TaskForm from "@/features/task/components/Form";
 import TaskListItem from "@/features/task/components/TaskListItem";
-import { TaskItem, TaskRequest } from "@/features/task/types";
+import { TaskRequest } from "@/features/task/types";
 import { useState } from "react";
+import { trpc } from '@/utils/trpc/hook';
 
-interface Props {
-  tasks: TaskItem[];
-}
+interface Props {}
 
-const TaskList: React.FunctionComponent<Props> = ({ tasks }) => {
+const TaskList: React.FunctionComponent<Props> = () => {
+  const tasksRes = trpc.tasks.useQuery();
+
   const [formTask, handleFormTaskChange] = useState<TaskRequest>({
     id: 0,
     title: "",
@@ -18,10 +19,14 @@ const TaskList: React.FunctionComponent<Props> = ({ tasks }) => {
     tags: [],
   });
 
+  if (!tasksRes.data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="flex items-start gap-x-6">
       <div className="flex-1 flex flex-col gap-y-6">
-        {tasks.map((task) => (
+        {tasksRes.data.tasks.map((task) => (
           <TaskListItem
             task={task}
             onSelect={handleFormTaskChange}
