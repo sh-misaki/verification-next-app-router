@@ -1,6 +1,7 @@
 import Icon, { IconName } from "@/components/Icon";
 import { Inter } from "next/font/google";
 import clsx from "clsx";
+import { TrpcProvider } from "@/utils/trpc/provider";
 
 import "./globals.css";
 
@@ -105,93 +106,95 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div
-          className={clsx(
-            "min-h-screen",
-            "flex",
-            "flex-col",
-            "flex-auto",
-            "flex-shrink-0",
-            "antialiased",
-            "bg-gray-50",
-            "text-gray-800"
-          )}
-        >
-          <div className="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
-            <div className="flex h-14 border-b p-4 text-xl font-bold">
-              <p className="paragraph">Menu</p>
-            </div>
-            <div className="overflow-y-auto overflow-x-hidden flex-grow">
-              <div className="flex flex-col py-4 space-y-1 h-full">
-                {menus.map((menu) => (
-                  <div
-                    key={menu.category}
-                    className="flex flex-col last:grow last:justify-end"
-                  >
-                    <div className="px-5">
-                      <div className="flex flex-row items-center h-8">
-                        <p className="paragraph text-sm text-gray-500">
-                          {menu.category}
-                        </p>
+        <TrpcProvider>
+          <div
+            className={clsx(
+              "min-h-screen",
+              "flex",
+              "flex-col",
+              "flex-auto",
+              "flex-shrink-0",
+              "antialiased",
+              "bg-gray-50",
+              "text-gray-800"
+            )}
+          >
+            <div className="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
+              <div className="flex h-14 border-b p-4 text-xl font-bold">
+                <p className="paragraph">Menu</p>
+              </div>
+              <div className="overflow-y-auto overflow-x-hidden flex-grow">
+                <div className="flex flex-col py-4 space-y-1 h-full">
+                  {menus.map((menu) => (
+                    <div
+                      key={menu.category}
+                      className="flex flex-col last:grow last:justify-end"
+                    >
+                      <div className="px-5">
+                        <div className="flex flex-row items-center h-8">
+                          <p className="paragraph text-sm text-gray-500">
+                            {menu.category}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <ul>
-                      {menu.links.map((link) => (
-                        <li key={`${link.href}_${link.text}`}>
-                          <a
-                            href={link.href}
-                            className={clsx(
-                              "relative",
-                              "flex",
-                              "flex-row",
-                              "items-center",
-                              "h-11",
-                              "focus:outline-none",
-                              "hover:bg-gray-50",
-                              "text-gray-600",
-                              "hover:text-gray-800",
-                              "border-l-4",
-                              "border-transparent",
-                              "hover:border-indigo-500",
-                              "pr-6"
-                            )}
-                          >
-                            <Icon
-                              name={link.iconName}
-                              className="w-5 h-5 ml-4"
-                            />
-                            <span className="paragraph ml-2 text-sm">
-                              {link.text}
-                            </span>
-                            {link.badge !== undefined && (
-                              <span
-                                className={clsx(
-                                  "px-2",
-                                  "py-0.5",
-                                  "ml-auto",
-                                  "text-xs",
-                                  "font-medium",
-                                  "tracking-wide",
-                                  "rounded-full",
-                                  link.badge.className
-                                )}
-                              >
-                                {link.badge.text}
+                      <ul>
+                        {menu.links.map((link) => (
+                          <li key={`${link.href}_${link.text}`}>
+                            <a
+                              href={link.href}
+                              className={clsx(
+                                "relative",
+                                "flex",
+                                "flex-row",
+                                "items-center",
+                                "h-11",
+                                "focus:outline-none",
+                                "hover:bg-gray-50",
+                                "text-gray-600",
+                                "hover:text-gray-800",
+                                "border-l-4",
+                                "border-transparent",
+                                "hover:border-indigo-500",
+                                "pr-6"
+                              )}
+                            >
+                              <Icon
+                                name={link.iconName}
+                                className="w-5 h-5 ml-4"
+                              />
+                              <span className="paragraph ml-2 text-sm">
+                                {link.text}
                               </span>
-                            )}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                              {link.badge !== undefined && (
+                                <span
+                                  className={clsx(
+                                    "px-2",
+                                    "py-0.5",
+                                    "ml-auto",
+                                    "text-xs",
+                                    "font-medium",
+                                    "tracking-wide",
+                                    "rounded-full",
+                                    link.badge.className
+                                  )}
+                                >
+                                  {link.badge.text}
+                                </span>
+                              )}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
+            <main className="flex min-h-screen flex-col justify-between ml-64 px-6 py-4">
+              {children}
+            </main>
           </div>
-          <main className="flex min-h-screen flex-col justify-between ml-64 px-6 py-4">
-            {children}
-          </main>
-        </div>
+        </TrpcProvider>
       </body>
     </html>
   );

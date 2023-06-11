@@ -5,13 +5,15 @@ import { TaskRequest } from "@/features/task/types";
 
 interface Props {
   task: TaskRequest;
+  onSubmit: () => void;
 }
 
 const TaskForm: React.FunctionComponent<Props> = ({
   task: { id, title, description, date, tags },
+  onSubmit,
 }) => {
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <div>
         <h2 className="border-b pb-2 text-base font-semibold leading-7 text-gray-900">
           Task
