@@ -1,5 +1,7 @@
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
+import { z, ZodError } from "zod";
+import { Context } from '@/app/api/trpc/[trpc]/context';
 
 import { TaskItem } from "@/features/task/types";
 
@@ -7,13 +9,40 @@ import { TaskItem } from "@/features/task/types";
 // since it's not very descriptive.
 // For instance, the use of a t variable
 // is common in i18n libraries.
-const t = initTRPC.create({
+const t = initTRPC.context<Context>().create({
+  errorFormatter: (opts) => {
+    const { shape, error } = opts;
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError:
+          error.code === 'BAD_REQUEST' && error.cause instanceof ZodError
+            ? error.cause.flatten()
+            : null,
+      },
+    };
+  },
   transformer: superjson,
+});
+
+const isAuthed = t.middleware(({ next, ctx }) => {
+  if (!ctx.session?.user?.email) {
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+    });
+  }
+  return next({
+    ctx: {
+      // Infers the `session` as non-nullable
+      session: ctx.session,
+    },
+  });
 });
 
 // Base router and procedure helpers
 export const router = t.router;
-export const procedure = t.procedure;
+export const middleware = t.middleware;
 
 const tasks: TaskItem[] = [
   {
@@ -60,12 +89,34 @@ const tasks: TaskItem[] = [
   },
 ];
 
+// Unprotected procedure
+const publicProcedure = t.procedure;
+ 
+// Protected procedure
+const protectedProcedure = t.procedure.use(isAuthed);
+
 export const appRouter = router({
-  tasks: procedure
-    .query(() => {
-      return {
-        tasks,
-      };
+  tasks: publicProcedure.query(() => {
+    return {
+      tasks,
+    };
+  }),
+  taskCreate: publicProcedure
+    .input(z.object({ name: z.string() }))
+    .output(
+      z.object({
+        id: z.number(),
+        name: z.string(),
+      }),
+    )
+    .mutation(async (opts) => {
+      // const { input } = opts;
+
+      // // Create a new user in the database
+      // const user = await db.user.create(input);
+
+      // return user;
+      return { id: 1, name: 'name' }
     }),
 });
 

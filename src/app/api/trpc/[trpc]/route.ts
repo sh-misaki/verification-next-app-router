@@ -3,6 +3,7 @@ import {
   fetchRequestHandler,
 } from "@trpc/server/adapters/fetch";
 import { appRouter } from "@/app/api/trpc/router";
+import { Context } from '@/app/api/trpc/[trpc]/context';
 
 const handler = (request: Request) => {
   return fetchRequestHandler({
@@ -11,9 +12,16 @@ const handler = (request: Request) => {
     router: appRouter,
     createContext: function (
       opts: FetchCreateContextFnOptions
-    ): object | Promise<object> {
-      return {};
+    ): Context | Promise<Context> {
+      return { session: null };
     },
+    onError: (opts) => {
+      const { error } = opts;
+      console.error('Error:', error);
+      if (error.code === 'INTERNAL_SERVER_ERROR') {
+        // send to bug reporting
+      }
+    }
   });
 };
 
