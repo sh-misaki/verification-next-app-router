@@ -21,22 +21,22 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 ## Target
 
 - [X] Tailwind
+- [ ] tRPC
+- [ ] MSW
 - [ ] App Router
-    - [ ] Server Component
-    - [ ] React Suspence & Streaming
-    - [ ] Parallel Routes
-    - [ ] Intercepting Routes
     - [ ] Route Handlers
     - [ ] Data Fetching
-    - [ ] React Cache
     - [ ] Server Actions
-- [ ] Recoil
+    - [ ] React Suspence & Streaming
+    - [ ] Server Component
+    - [ ] React Cache
+    - [ ] Parallel Routes
+    - [ ] Intercepting Routes
+- [ ] React Query
+- [ ] Prisma
 - [ ] React Hook Form
 - [ ] Zod
-- [ ] MSW
-- [ ] React Query
-- [ ] tRPC
-- [ ] Prisma
+- [ ] Recoil
 - [X] Feature Directory
 
 ## ToDo
